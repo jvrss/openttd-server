@@ -1,29 +1,30 @@
-FROM ubuntu:20.04
+FROM ubuntu:24.04
 
 RUN apt-get update
-RUN apt-get install dos2unix
+RUN apt-get install -y dos2unix
 RUN apt-get install -y wget
-RUN apt-get install libgomp1
+RUN apt-get install -y libgomp1
 
 # See: https://jdk.java.net/archive/
-ENV JDK_DOWNLOAD https://download.java.net/java/GA/jdk17.0.2/dfd4a8d0985749f896bed50d7138ee7f/8/GPL/openjdk-17.0.2_linux-x64_bin.tar.gz
+ENV JDK_DOWNLOAD=https://download.java.net/java/GA/jdk25.0.2/b1e0dfa218384cb9959bdcb897162d4e/10/GPL/openjdk-25.0.2_linux-x64_bin.tar.gz
 
-# Install OpenJDK Java 17 SDK
-ENV JVM_DIR /usr/lib/jvm
+
+# Install OpenJDK Java 25 SDK
+ENV JVM_DIR=/usr/lib/jvm
 RUN mkdir -p "${JVM_DIR}"
 
 
 RUN wget -q --no-cookies --no-check-certificate \
-  -O "${DOWNLOAD_DIR}/openjdk-17.0.2_linux-x64_bin.tar.gz" "${JDK_DOWNLOAD}" \
+  -O "${DOWNLOAD_DIR}/openjdk-25.0.2_linux-x64_bin.tar.gz" "${JDK_DOWNLOAD}" \
   && cd "${JVM_DIR}" \
-  && tar --no-same-owner -xzf "${DOWNLOAD_DIR}/openjdk-17.0.2_linux-x64_bin.tar.gz" \
-  && rm -f "${DOWNLOAD_DIR}/openjdk-17.0.2_linux-x64_bin.tar.gz" \
-  && mv "${JVM_DIR}/jdk-17.0.2" "${JVM_DIR}/java-17.0.2-openjdk-x64" \
-  && ln -s "${JVM_DIR}/java-17.0.2-openjdk-x64" "${JVM_DIR}/java-17-openjdk-x64"
+  && tar --no-same-owner -xzf "${DOWNLOAD_DIR}/openjdk-25.0.2_linux-x64_bin.tar.gz" \
+  && rm -f "${DOWNLOAD_DIR}/openjdk-25.0.2_linux-x64_bin.tar.gz" \
+  && mv "${JVM_DIR}/jdk-25.0.2" "${JVM_DIR}/java-25.0.2-openjdk-x64" \
+  && ln -s "${JVM_DIR}/java-25.0.2-openjdk-x64" "${JVM_DIR}/java-25-openjdk-x64"
 
-ENV JAVA_HOME ${JVM_DIR}/java-17-openjdk-x64
+ENV JAVA_HOME=${JVM_DIR}/java-25-openjdk-x64
 
-ENV PATH=$PATH:$HOME/bin:$JAVA_HOME/bin
+ENV PATH=$PATH:$JAVA_HOME/bin
 
 COPY src/main/docker/cleanup.sh /tmp/cleanup.sh
 COPY src/main/docker/buildconfig /tmp/buildconfig
@@ -36,12 +37,13 @@ RUN dos2unix /openttd.sh
 RUN chmod +x /tmp/cleanup.sh /openttd.sh
 
 RUN apt update -qq
-RUN apt install -yqq --no-install-recommends -o DPkg::Options::=--force-confold -o DPkg::Options::=--force-confdef dumb-init wget unzip ca-certificates libfontconfig1 libfreetype6 libfluidsynth2 libicu-dev libpng16-16 liblzma-dev liblzo2-2 libsdl1.2debian libsdl2-2.0-0 xz-utils > /dev/null 2>&1
+RUN apt install -yqq --no-install-recommends -o DPkg::Options::=--force-confold -o DPkg::Options::=--force-confdef adduser passwd dumb-init wget unzip ca-certificates libfontconfig1 libfreetype6 libfluidsynth3 libicu-dev libpng16-16 liblzma-dev liblzo2-2 libsdl2-2.0-0 xz-utils > /dev/null 2>&1
 
 
 ## Create user
+RUN userdel -r ubuntu 2>/dev/null || true
 RUN adduser --uid 1000 --shell /bin/bash --gecos "" openttd
-RUN addgroup openttd users
+RUN adduser openttd users
 RUN passwd -d openttd
 
 USER openttd
