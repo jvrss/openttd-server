@@ -1,7 +1,6 @@
 package de.litexo.commands;
 
 import de.litexo.commands.model.Client;
-import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,8 +10,9 @@ import java.util.regex.Pattern;
 
 public class ClientsCommand extends Command {
 
-    @Getter
     private List<Client> clients = new ArrayList<>();
+
+    public List<Client> getClients() { return clients; }
 
     public ClientsCommand() {
         super("clients");

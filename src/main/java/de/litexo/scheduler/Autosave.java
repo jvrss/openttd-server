@@ -7,8 +7,8 @@ import de.litexo.model.internal.InternalOpenttdServerConfig;
 import de.litexo.services.OpenttdService;
 import io.quarkus.scheduler.Scheduled;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import java.util.Optional;
 
 @ApplicationScoped

@@ -4,12 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.ToString;
 
 /**
  * @author Andreas Hauschild
  */
-@ToString
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "_type")
 public abstract class BaseEvent {
@@ -37,6 +35,11 @@ public abstract class BaseEvent {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public String toString() {
+        return "BaseEvent(created=" + created + ", clazz=" + clazz + ")";
     }
 
 }

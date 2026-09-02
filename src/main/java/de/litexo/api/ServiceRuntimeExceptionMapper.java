@@ -7,13 +7,13 @@ import de.litexo.repository.DefaultRepository;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.jboss.logging.Logger;
 
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.ext.ExceptionMapper;
-import javax.ws.rs.ext.Provider;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.ext.ExceptionMapper;
+import jakarta.ws.rs.ext.Provider;
 
 import static de.litexo.model.external.ServiceErrorType.RUNTIME_EXCEPTION;
-import static javax.ws.rs.core.Response.status;
+import static jakarta.ws.rs.core.Response.status;
 
 @Provider
 public class ServiceRuntimeExceptionMapper implements ExceptionMapper<ServiceRuntimeException> {

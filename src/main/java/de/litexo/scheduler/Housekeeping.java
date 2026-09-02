@@ -10,8 +10,8 @@ import de.litexo.services.OpenttdService;
 import io.quarkus.scheduler.Scheduled;
 import org.apache.commons.io.FileUtils;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import java.io.File;
 import java.util.Comparator;
 import java.util.List;

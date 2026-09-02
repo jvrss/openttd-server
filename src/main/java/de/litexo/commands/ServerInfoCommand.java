@@ -1,25 +1,24 @@
 package de.litexo.commands;
 
-import lombok.Getter;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class ServerInfoCommand extends Command {
 
-    @Getter
     private String inviteCode;
-    @Getter
     private int currentClients;
-    @Getter
     private int maxClients;
-    @Getter
     private int currentCompanies;
-    @Getter
     private int maxCompanies;
-    @Getter
     private int currentSpectators;
+
+    public String getInviteCode() { return inviteCode; }
+    public int getCurrentClients() { return currentClients; }
+    public int getMaxClients() { return maxClients; }
+    public int getCurrentCompanies() { return currentCompanies; }
+    public int getMaxCompanies() { return maxCompanies; }
+    public int getCurrentSpectators() { return currentSpectators; }
 
     public ServerInfoCommand() {
         super("server_info");

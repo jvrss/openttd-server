@@ -6,8 +6,6 @@ import de.litexo.api.ServiceRuntimeException;
 import de.litexo.commands.Command;
 import de.litexo.events.EventBus;
 import de.litexo.model.external.BaseProcess;
-import lombok.Data;
-import lombok.experimental.Accessors;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +13,6 @@ import java.util.concurrent.ExecutorService;
 
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
-@Data
-@Accessors(chain = true)
 public class OpenttdProcess {
 
     private static final long UI_TERMINAL_ACTIVITY_DISABLE_COMMANDS_THRESHOLD = 30000;
@@ -62,6 +58,27 @@ public class OpenttdProcess {
         this.executorService = executorService;
         this.eventBus = eventBus;
     }
+
+    public List<String> getStartServerCommand() { return startServerCommand; }
+    public void setStartServerCommand(List<String> startServerCommand) { this.startServerCommand = startServerCommand; }
+
+    public String getId() { return id; }
+    public OpenttdProcess setId(String id) { this.id = id; return this; }
+
+    public Integer getPort() { return port; }
+    public void setPort(Integer port) { this.port = port; }
+
+    public String getSaveGame() { return saveGame; }
+    public void setSaveGame(String saveGame) { this.saveGame = saveGame; }
+
+    public String getConfig() { return config; }
+    public void setConfig(String config) { this.config = config; }
+
+    public Long getLastUiTerminalActivity() { return lastUiTerminalActivity; }
+    public void setLastUiTerminalActivity(Long lastUiTerminalActivity) { this.lastUiTerminalActivity = lastUiTerminalActivity; }
+
+    public ProcessThread getProcessThread() { return processThread; }
+    public void setProcessThread(ProcessThread processThread) { this.processThread = processThread; }
 
     public void start() {
         try {

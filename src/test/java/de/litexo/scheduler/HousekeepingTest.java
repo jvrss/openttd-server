@@ -59,7 +59,8 @@ class HousekeepingTest {
     void test_0001() throws Exception {
         String id = "id1234567";
         OpenttdServer server = new OpenttdServer().setId(id);
-        OpenttdProcess process = new OpenttdProcess().setId(id);
+        OpenttdProcess process = new OpenttdProcess();
+        process.setId(id);
 
         InternalOpenttdServerConfig config = new InternalOpenttdServerConfig();
         config.setNumberOfAutoSaveFilesToKeep(3);
@@ -100,7 +101,8 @@ class HousekeepingTest {
     void test_0010() throws Exception {
         String id = "id1234567";
         OpenttdServer server = new OpenttdServer().setId(id);
-        OpenttdProcess process = new OpenttdProcess().setId(id);
+        OpenttdProcess process = new OpenttdProcess();
+        process.setId(id);
 
         InternalOpenttdServerConfig config = new InternalOpenttdServerConfig();
         config.setNumberOfAutoSaveFilesToKeep(20);

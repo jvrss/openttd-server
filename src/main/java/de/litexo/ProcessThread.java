@@ -4,7 +4,6 @@ import de.litexo.api.ServiceRuntimeException;
 import de.litexo.events.EventBus;
 import de.litexo.events.OpenttdTerminalUpdateEvent;
 import de.litexo.model.external.BaseProcess;
-import lombok.Getter;
 
 import java.util.List;
 import java.util.UUID;
@@ -14,12 +13,10 @@ public class ProcessThread implements Runnable {
 
     private final EventBus eventBus;
 
-    @Getter
     private String uuid = UUID.randomUUID().toString();
 
     ExecutorService executorService;
 
-    @Getter
     List<String> command;
 
     StringBuilder logs = new StringBuilder();
@@ -29,8 +26,11 @@ public class ProcessThread implements Runnable {
     private ProcessOutputThread processOutput;
     private ProcessOutputThread processErrorOutput;
     private ProccesInputThread processInput;
-    @Getter
     private Process process;
+
+    public String getUuid() { return uuid; }
+    public List<String> getCommand() { return command; }
+    public Process getProcess() { return process; }
 
     public ProcessThread(ExecutorService executorService, List<String> command, EventBus eventBus) {
         this.executorService = executorService;
@@ -45,10 +45,6 @@ public class ProcessThread implements Runnable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public String getUuid() {
-        return uuid;
     }
 
     private void start(List<String> cmd) throws Exception {

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import de.litexo.ProcessThread;
 import de.litexo.api.ServiceRuntimeException;
-import lombok.Getter;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "_type")
 @JsonSubTypes({
@@ -19,8 +18,9 @@ public abstract class Command {
     String command;
     String rawResult;
 
-    @Getter
     boolean executed = false;
+
+    public boolean isExecuted() { return executed; }
 
     boolean cmdSend = false;
 
