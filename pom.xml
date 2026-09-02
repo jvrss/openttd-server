@@ -236,6 +236,7 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-maven-plugin</artifactId>
             <version>${quarkus.platform.version}</version>
+            <extensions>true</extensions>
             <executions>
               <execution>
                 <goals>
@@ -271,6 +272,7 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-maven-plugin</artifactId>
             <version>${quarkus.platform.version}</version>
+            <extensions>true</extensions>
             <executions>
               <execution>
                 <goals>
