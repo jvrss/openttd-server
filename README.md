@@ -11,6 +11,13 @@
 # Welcome to OpenTTD Server
 This Docker container allows you to host multiple instances of OpenTTD (https://www.openttd.org) dedicated servers in a single container, providing an efficient and convenient environment for hosting these servers.
 
+Code base: https://github.com/andreashauschild/openttd-server
+
+## Improvements:
+ - Backend and frontend are updated to the latest versions.
+ - Now, when the Docker container is stopped for any reason, the next time it is started, the servers that were running before it stopped will automatically start running again.
+
+
 This documentation expect a basic knowledge of docker (expose ports and volumes).
 
 The current state of this Project is `BETA`. Hosting works and every function was tested but as you know a developer should not test his own software. Please create an issue if something needs to be fixed.
