@@ -1,12 +1,12 @@
-[![Build OpenTTD Server](https://github.com/andreashauschild/openttd-server/actions/workflows/build.yml/badge.svg)](https://github.com/andreashauschild/openttd-server/actions/workflows/build.yml)
-[![Release OpenTTD Server](https://github.com/andreashauschild/openttd-server/actions/workflows/release.yml/badge.svg)](https://github.com/andreashauschild/openttd-server/actions/workflows/release.yml)  
-[![Docker Pulls](https://badgen.net/docker/pulls/hauschi86/openttd-server?icon=docker&label=pulls)](https://hub.docker.com/r/hauschi86/openttd-server/)
-[![Docker Stars](https://badgen.net/docker/stars/hauschi86/openttd-server?icon=docker&label=stars)](https://hub.docker.com/r/hauschi86/openttd-server/)
-[![Docker Image Size](https://badgen.net/docker/size/hauschi86/openttd-server?icon=docker&label=image%20size)](https://hub.docker.com/r/hauschi86/openttd-server/)
-![Github stars](https://badgen.net/github/stars/andreashauschild/openttd-server?icon=github&label=stars)
-![Github forks](https://badgen.net/github/forks/andreashauschild/openttd-server?icon=github&label=forks)
-![Github issues](https://img.shields.io/github/issues/andreashauschild/openttd-server)
-![Github last-commit](https://img.shields.io/github/last-commit/andreashauschild/openttd-server)
+[![Build OpenTTD Server](https://github.com/jvrss/openttd-server/actions/workflows/build.yml/badge.svg)](https://github.com/jvrss/openttd-server/actions/workflows/build.yml)
+[![Release OpenTTD Server](https://github.com/jvrss/openttd-server/actions/workflows/release.yml/badge.svg)](https://github.com/jvrss/openttd-server/actions/workflows/release.yml)  
+[![Docker Pulls](https://badgen.net/docker/pulls/jvrss/openttd-server?icon=docker&label=pulls)](https://hub.docker.com/r/soldierjvx/openttd-server/)
+[![Docker Stars](https://badgen.net/docker/stars/jvrss/openttd-server?icon=docker&label=stars)](https://hub.docker.com/r/soldierjvx/openttd-server/)
+[![Docker Image Size](https://badgen.net/docker/size/jvrss/openttd-server?icon=docker&label=image%20size)](https://hub.docker.com/r/soldierjvx/openttd-server/)
+![Github stars](https://badgen.net/github/stars/jvrss/openttd-server?icon=github&label=stars)
+![Github forks](https://badgen.net/github/forks/jvrss/openttd-server?icon=github&label=forks)
+![Github issues](https://img.shields.io/github/issues/jvrss/openttd-server)
+![Github last-commit](https://img.shields.io/github/last-commit/jvrss/openttd-server)
 
 # Welcome to OpenTTD Server
 This Docker container allows you to host multiple instances of OpenTTD (https://www.openttd.org) dedicated servers in a single container, providing an efficient and convenient environment for hosting these servers.
@@ -129,7 +129,7 @@ OpenTTD is installed on `/home/openttd/openttd-<version>` directory.
 
 # Setup
 When you start the Docker container for the OpenTTD server for the first time, it will log the password for the admin login. See fragment below.
-You can use the admin user to log in to the web app, which runs on http://localhost:8080 by default.
+You can use the admin user to log in to the web app, which runs on http://localhost:4200 by default.
 Once logged in, you can access the web app's settings to change the admin password.
 
 **First startup log fragment with password**
@@ -143,7 +143,7 @@ Once logged in, you can access the web app's settings to change the admin passwo
 ...
 ```
 
-# Examples
+# Examples - Needs to be updated
 **Info:** If you have a specific version of the container that you prefer to use, you can replace the example version with your chosen version. 
 This will ensure that you are using the version of the container that best meets your needs and preferences.
 
@@ -159,51 +159,4 @@ The container uses a simple file storage to store data. If you want to have pers
 
 `docker run -d -v openttd-server-volume:/home/openttd/server -p 8080:8080 -p 3979-3999:3979-3999/tcp -p 3979-3999:3979-3999/udp hauschi86/openttd-server:latest`
 
-
-# Usage Development Mode
-
-## Quarkus remote docker container development
-- Open a terminal in the `root` directory
-- `docker build -f src/main/docker/Dockerfile . --progress=plain -t openttd-server`
-- `docker run -i --rm -p 8080:8080 -p 5005:5005 -p 3977:3977/tcp -p 3979:3979/tcp -p 3979:3979/udp -e QUARKUS_LAUNCH_DEVMODE=true openttd-server`
-- `openttd -D -b 8bpp-optimized`  Run with possibility to do screenshots (https://www.tt-forums.net/viewtopic.php?t=88943)
-- https://quarkus.io/guides/maven-tooling#remote-development-mode
-- https://blog.sebastian-daschner.com/entries/quarkus-remote-dev-in-containers-update
-
-## Debug and develop in Quarkus Container:
-- Quarkus debug url: http://localhost:8080/q
-- Add properties to `application.properties`
-
-```
-quarkus.package.type=mutable-jar
-quarkus.live-reload.password=Password_1
-quarkus.live-reload.url=http://localhost:8080
-```
-
-- Add env values to dockerfile expose debug port and add remote debug to startup:
-
-```
-EXPOSE 5005
-ENV QUARKUS_LAUNCH_DEVMODE=true
-ENV JAVA_ENABLE_DEBUG=true
-
-CMD ["java","-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=0.0.0.0:5005", "-jar", "/deployments/quarkus-run.jar"]
-```
-
-- Start dev environment in remote debug mode (but disable local debug):
-    - `mvn quarkus:remote-dev -Ddebug=false -Dquarkus.live-reload.url=http://localhost:8080`
-
-## Helpful commands:
-
-| Description                        | Command                                                                                   |
-|------------------------------------|-------------------------------------------------------------------------------------------|
-| Create Module with routing         | `npx ng g m HomeIndex --flat --routing`                                                   |
-| Create Component and add to module | `npx ng g m LoginIndex --flat && npx ng g c LoginIndex --flat -m .\login-index.module.ts` |
-|                                    |                                                                                           |
-|                                    |                                                                                           |
-
-## Structure Based on:
-
-- https://github.com/joshuamorony/nx-angular-structure/tree/main/src/app
-    - https://www.youtube.com/watch?v=7SDpTOLeqHE
-
+The frontend is separated from the backend. You can find it in https://github.com/jvrss/openttd-server-ui
