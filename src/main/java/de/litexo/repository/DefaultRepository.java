@@ -192,7 +192,7 @@ public class DefaultRepository {
             this.openttdServerMapper.patch(server, toUpdate);
             throwIfPortAllocated(toUpdate.getPort(), openttdServerData.getServers().stream().filter(s -> !s.getId().equals(id)).toList());
             if(StringUtils.isNotEmpty(toUpdate.getAdminPassword())){
-                throwIfAdminPortAllocated(toUpdate.getServerAdminPort(), openttdServerData.getServers());
+                throwIfAdminPortAllocated(toUpdate.getServerAdminPort(), openttdServerData.getServers().stream().filter(s -> !s.getId().equals(id)).toList());
             }
             openttdServerData.getServers().set(replaceIndex, toUpdate);
             save(openttdServerData);
