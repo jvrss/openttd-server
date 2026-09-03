@@ -135,6 +135,9 @@ public class OpenttdService {
 
             openttdProcess.start();
             processes.put(openttdProcess.getId(), openttdProcess);
+            OpenttdServer patch = new OpenttdServer();
+            patch.setAutoRestart(true);
+            this.repository.updateServer(openttdServer.get().getId(), patch);
             return this.getOpenttdServer(openttdServer.get().getId()).orElse(null);
         }
         throw new ServiceRuntimeException("Failed to start server. Server with name '" + id + "' does not exists!");
@@ -219,6 +222,7 @@ public class OpenttdService {
             this.processes.get(id).getProcessThread().stop();
             this.processes.remove(id);
             OpenttdServer patch = new OpenttdServer();
+            patch.setAutoRestart(false);
             patch.setInviteCode("");
             patch.setCurrentClients(0);
             patch.setMaxClients(0);

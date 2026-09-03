@@ -22,6 +22,7 @@ public class OpenttdServer {
     private boolean autoSave = true;
     private boolean autoPause = true;
     private boolean paused = false;
+    private boolean autoRestart = false;
     private String inviteCode;
     private int currentClients;
     private int maxClients;
@@ -67,6 +68,9 @@ public class OpenttdServer {
 
     public boolean isAutoPause() { return autoPause; }
     public OpenttdServer setAutoPause(boolean autoPause) { this.autoPause = autoPause; return this; }
+
+    public boolean isAutoRestart() { return autoRestart; }
+    public OpenttdServer setAutoRestart(boolean autoRestart) { this.autoRestart = autoRestart; return this; }
 
     public boolean isPaused() { return paused; }
     public OpenttdServer setPaused(boolean paused) { this.paused = paused; return this; }

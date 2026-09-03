@@ -1,6 +1,7 @@
 package de.litexo.services;
 
 import de.litexo.OpenttdProcess;
+import de.litexo.model.external.OpenttdServer;
 import de.litexo.model.internal.InternalOpenttdServerConfig;
 import de.litexo.repository.DefaultRepository;
 import de.litexo.security.SecurityUtils;
@@ -33,7 +34,21 @@ public class ApplicationBootstrapService {
     @PostConstruct
     void init() {
         initDefaultServerConfig();
+        restoreRunningServers();
+    }
 
+    private void restoreRunningServers() {
+        InternalOpenttdServerConfig config = this.repository.getOpenttdServerConfig();
+        for (OpenttdServer server : config.getServers()) {
+            if (server.isAutoRestart()) {
+                try {
+                    LOG.infof("Restoring server '%s' that was running before shutdown", server.getId());
+                    service.startServer(server.getId());
+                } catch (Exception e) {
+                    LOG.errorf(e, "Failed to restore server '%s'", server.getId());
+                }
+            }
+        }
     }
 
     private void initDefaultServerConfig() {
