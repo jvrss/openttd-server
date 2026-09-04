@@ -16,6 +16,7 @@ Forked from: https://github.com/andreashauschild/openttd-server
 ## Improvements:
  - Backend and frontend are updated to the latest versions.
  - Now, when the Docker container is stopped for any reason, the next time it is started, the servers that were running before it stopped will automatically start running again.
+ - Admin portal bug fixed
 
 
 This documentation expect a basic knowledge of docker (expose ports and volumes).
@@ -32,7 +33,7 @@ It provides the following features:
 - Auto pause and unpause on inactive servers. If no player is playing the server is running but paused. Server unpauses if a player joins a company.
 - Simple terminal to send commands directly to the dedicated server
 
-# Versions
+# Frontend
 
 Server front:
 https://github.com/jvrss/openttd-server-ui
@@ -109,8 +110,11 @@ The File Explorer provides access to the OpenTTD installation directory (`/home/
 **Note:** NewGRF files should be installed before starting a new game to ensure correct operation. Changes to NewGRF settings are baked into save games.
 
 # Networking
-By default, docker does not expose the containers on your network. This must be done manually with -p parameter (see here for more details on -p). 
-For the container to work you need to expose at least 2 ports. The port `8080` for the web application and the port for your openttd dedicated server (default: `3979`)
+The project now includes a `docker-compose.yml` file to simplify network configuration. You can use the `docker-compose up -d` command to start the container with the appropriate network configuration. \
+Link to the file: https://github.com/jvrss/openttd-server/blob/main/src/main/docker/docker-compose.yaml \
+The frontend will run on port 4200 and the backend on port 8080. You can access the frontend at http://localhost:4200 and the backend at http://localhost:8080. \
+The OpenTTD dedicated server runs on port 3979. You can change this port in the docker-compose.yaml file if you wish. \
+And if you want to run more than one OpenTTD dedicated server, you’ll need to expose additional ports. For example, if you want to run 20 OpenTTD dedicated servers, you’ll need to expose ports 3979 through 3999.
 
 # File Locations
 All data and uploads within the container are saved in the `/home/openttd/server` directory.
@@ -131,21 +135,3 @@ Once logged in, you can access the web app's settings to change the admin passwo
 ###########################################################################
 ...
 ```
-
-# Examples - Needs to be updated
-**Info:** If you have a specific version of the container that you prefer to use, you can replace the example version with your chosen version. 
-This will ensure that you are using the version of the container that best meets your needs and preferences.
-
-Run OpenTTD Server with 1 exposed port. In this case you can host only 1 server.
-
-`docker run -d -p 8080:8080 -p 3979:3979/tcp -p 3979:3979/udp hauschi86/openttd-server:latest`
-
-Run OpenTTD Server with 20 exposed port. In this case you can host 20 servers.
-
-`docker run -d -p 8080:8080 -p 3979-3999:3979-3999/tcp -p 3979-3999:3979-3999/udp hauschi86/openttd-server:latest`
-
-The container uses a simple file storage to store data. If you want to have persistent storage you should create a volume and bind it.
-
-`docker run -d -v openttd-server-volume:/home/openttd/server -p 8080:8080 -p 3979-3999:3979-3999/tcp -p 3979-3999:3979-3999/udp hauschi86/openttd-server:latest`
-
-The frontend is separated from the backend. You can find it in https://github.com/jvrss/openttd-server-ui
