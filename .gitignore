@@ -37,3 +37,4 @@ pom.xml.versionsBackup
 release.properties
 server
 out
+/logs

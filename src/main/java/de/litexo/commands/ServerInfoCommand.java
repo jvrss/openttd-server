@@ -39,23 +39,35 @@ public class ServerInfoCommand extends Command {
             if (line.contains("Current/maximum clients:")) {
                 String[] split = line.split("Current/maximum clients:");
                 if (split.length > 1) {
-                    this.currentClients = Integer.parseInt(split[1].split("/")[0].trim());
-                    this.maxClients = Integer.parseInt(split[1].split("/")[1].trim());
+                    try {
+                        this.currentClients = Integer.parseInt(split[1].split("/")[0].trim());
+                        this.maxClients = Integer.parseInt(split[1].split("/")[1].trim());
+                    } catch (NumberFormatException e) {
+                        // Log error or handle it
+                    }
                 }
                 matched++;
             }
             if (line.contains("Current/maximum companies:")) {
                 String[] split = line.split("Current/maximum companies:");
                 if (split.length > 1) {
-                    this.currentCompanies = Integer.parseInt(split[1].split("/")[0].trim());
-                    this.maxCompanies = Integer.parseInt(split[1].split("/")[1].trim());
+                    try {
+                        this.currentCompanies = Integer.parseInt(split[1].split("/")[0].trim());
+                        this.maxCompanies = Integer.parseInt(split[1].split("/")[1].trim());
+                    } catch (NumberFormatException e) {
+                        // Log error or handle it
+                    }
                 }
                 matched++;
             }
             if (line.contains("Current spectators:")) {
                 String[] split = line.split("Current spectators:");
                 if (split.length > 1) {
-                    this.currentSpectators = Integer.parseInt(split[1].trim());
+                    try {
+                        this.currentSpectators = Integer.parseInt(split[1].trim());
+                    } catch (NumberFormatException e) {
+                        // Log error or handle it
+                    }
                 }
                 matched++;
             }

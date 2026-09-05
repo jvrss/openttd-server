@@ -47,8 +47,13 @@ public class Autosave {
         if (!server.isAutoSave()) {
             System.out.println("Autosave is disabled for Server: " + server.getName());
         } else {
-            this.service.autoSaveGame(server.getId());
+            try {
+                this.service.autoSaveGame(server.getId());
+            } catch (Exception e) {
+                System.err.println("Autosave failed for server " + server.getName() + ": " + e.getMessage());
+            }
         }
+    }
 
     }
 }
