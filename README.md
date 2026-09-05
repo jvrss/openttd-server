@@ -136,6 +136,13 @@ Once logged in, you can access the web app's settings to change the admin passwo
 ...
 ```
 
+# Technology
+Here are the technologies used in this project.
+- Java 25
+- Quarkus 3.39.1
+- Maven
+- Docker
+
 ## License
 
 This project is licensed under the Apache License 2.0. See the LICENSE file for details.
