@@ -1,6 +1,5 @@
 package de.litexo.scheduler;
 
-
 import de.litexo.OpenttdProcess;
 import de.litexo.model.external.OpenttdServer;
 import de.litexo.model.internal.InternalOpenttdServerConfig;
@@ -53,7 +52,5 @@ public class Autosave {
                 System.err.println("Autosave failed for server " + server.getName() + ": " + e.getMessage());
             }
         }
-    }
-
     }
 }
