@@ -111,7 +111,7 @@ The File Explorer provides access to the OpenTTD installation directory (`/home/
 
 # Networking
 The project now includes a `docker-compose.yml` file to simplify network configuration. You can use the `docker-compose up -d` command to start the container with the appropriate network configuration. \
-Link to the file: https://github.com/jvrss/openttd-server/blob/main/src/main/docker/docker-compose.yaml \
+Link to the file: [docker-compose.yml](https://github.com/jvrss/openttd-server/blob/main/src/main/docker/docker-compose.yaml) \
 The frontend will run on port 4200 and the backend on port 8080. You can access the frontend at http://localhost:4200 and the backend at http://localhost:8080. \
 The OpenTTD dedicated server runs on port 3979. You can change this port in the docker-compose.yaml file if you wish. \
 And if you want to run more than one OpenTTD dedicated server, you’ll need to expose additional ports. For example, if you want to run 20 OpenTTD dedicated servers, you’ll need to expose ports 3979 through 3999.
